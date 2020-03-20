@@ -1,0 +1,52 @@
+<div class="main-wrapper">     
+    <form (ngSubmit)="formSubmit()" [formGroup]='userEditForm'>
+        <h1>User editing</h1>
+        <mat-card class="example-card">
+            <mat-card-content>
+                <mat-form-field>
+                    <input matInput placeholder="login name" formControlName='name' required />
+                    <mat-error *ngIf="name?.errors?.minlength">Login musi mat aspon {{name.errors.minlength.requiredLength}} znaky,
+                        aktualne mate {{name.errors.minlength.actualLength}} znakov
+                    </mat-error>
+                    <mat-error *ngIf="name?.errors?.required">login musi byt vyplneny</mat-error>
+                    <mat-error *ngIf="name?.errors?.conflictField">{{name.errors.conflictField}}</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="email" formControlName='email' required />
+                    <mat-error *ngIf="email?.errors?.email || email?.errors?.pattern">email musi byt v spravnom tvare</mat-error>
+                    <mat-error *ngIf="name?.errors?.conflictField">{{name.errors.conflictField}}</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput [type]="hide ? 'password' : 'text'" type="password" 
+                    placeholder="password" formControlName='password'/>
+                    <button  type='button' matSuffix mat-icon-button aria-label="Hide password" (click)="hide = !hide">
+                        <mat-icon *ngIf="!hide">visibility</mat-icon>
+                        <mat-icon *ngIf="hide">visibility_off</mat-icon>
+                      </button>
+                </mat-form-field>  
+                <mat-form-field>
+                    <input matInput [type]="hide ? 'password' : 'text'" type="password" 
+                    placeholder="repeat password" formControlName='password2'/>
+                    <button  type='button' matSuffix mat-icon-button aria-label="Hide password" (click)="hide = !hide">
+                        <mat-icon *ngIf="!hide">visibility</mat-icon>
+                        <mat-icon *ngIf="hide">visibility_off</mat-icon>
+                      </button>
+                    <mat-error *ngIf="password2?.errors?.differentPasswords">{{password2.errors.differentPasswords}}</mat-error>
+                </mat-form-field>   
+                <div>
+                    <mat-slide-toggle formControlName='active'>Active!</mat-slide-toggle>
+                </div> 
+                <p>Groups:</p>
+                <div formArrayName='groups'>
+                    <mat-checkbox *ngFor='let group of groupsCheckBoxes.controls; let i = index' [formControlName]='i'>
+                        {{groups[i].name}}
+                    </mat-checkbox>
+                </div>
+            </mat-card-content>
+            <mat-card-actions>
+                <button type="submit" mat-raised-button color="primary" [disabled]="userEditForm?.invalid">Save</button>
+            </mat-card-actions> 
+        </mat-card>
+    </form>
+</div>
+
