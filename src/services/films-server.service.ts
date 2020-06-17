@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { Film } from 'src/entities/film';
-import { Observable } from 'rxjs';
+import { Observable, EMPTY, throwError } from 'rxjs';
 import { UsersServerService } from './users-server.service';
-import { tap } from 'rxjs/operators';
+import { tap, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FilmsServerService {
 
-  url = 'http://localhost:8080/films'
+  url = 'http://localhost:8080/'
 
   constructor(private http: HttpClient, private usersServerService: UsersServerService) { }
 
@@ -50,8 +50,20 @@ export class FilmsServerService {
     if(descending){
       httpOptions.params = httpOptions.params.set('descending', '' + descending)
     }
-    return this.http.get<FilmsResponse>(this.url,httpOptions)
+    return this.http.get<FilmsResponse>(this.url + 'films/',httpOptions)
     .pipe(tap(resp => console.log(resp)))
+  }
+  
+  saveFilm(film: Film): Observable<Film>{
+    return this.http.post<Film>(this.url + 'films/' + this.token, film)
+    .pipe(catchError(error => this.processHttpError(error)))
+  }
+  
+  private processHttpError(error){
+    if (error instanceof HttpErrorResponse && error.status === 401){
+      return EMPTY //zle heslo
+    }
+    return throwError(error) //ina chyba
   }
  
 }

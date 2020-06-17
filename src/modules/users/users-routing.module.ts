@@ -14,9 +14,9 @@ const routes: Routes = [
     resolve: {
       user: UserResolverService
     }},
-  { path: 'add', component: AddUserComponent, canActivate:[AuthGuard] },
+  { path: 'add', component: AddUserComponent, canActivate:[AuthGuard] },  
+  { path: 'extended', component: ExtendedUsersComponent, canActivate:[AuthGuard]},
   { path: 'simple', component: UsersListComponent },
-  { path: 'extended', component: ExtendedUsersComponent, canActivate:[AuthGuard]},  
 ];
 
 @NgModule({

@@ -1,0 +1,36 @@
+<div class="main-wrapper">     
+    <form (ngSubmit)="formSubmit()" [formGroup]='filmEditForm'>
+        <h1>Film editing</h1>
+        <mat-card class="example-card">
+            <mat-card-content>
+                <mat-form-field>
+                    <input matInput placeholder="nazov" formControlName='nazov' required />
+                    <mat-error *ngIf="nazov?.errors?.minlength">Nazov musi mat aspon {{nazov.errors.minlength.requiredLength}} znaky,
+                        aktualne mate {{nazov.errors.minlength.actualLength}} znakov
+                    </mat-error>
+                    <mat-error *ngIf="nazov?.errors?.required">Nazov musi byt vyplneny</mat-error>
+                    <mat-error *ngIf="nazov?.errors?.conflictField">{{nazov.errors.conflictField}}</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="rok" formControlName='rok' required />
+                    <mat-error *ngIf="rok?.errors?.min">rok musi byt vacsi ako 1000</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="imdbID" formControlName='imdbID' />
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="slovenskyNazov" formControlName='slovenskyNazov' />
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="afi1998" formControlName='afi1998' />
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="afi2007" formControlName='afi2007' />
+                </mat-form-field>
+            </mat-card-content>
+            <mat-card-actions>
+                <button type="submit" mat-raised-button color="primary" [disabled]="filmEditForm?.invalid">Save</button>
+            </mat-card-actions> 
+        </mat-card>
+    </form>
+</div>

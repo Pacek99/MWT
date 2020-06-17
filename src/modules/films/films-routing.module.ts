@@ -11,12 +11,14 @@ const routes: Routes = [
     path: '',
     component: FilmsMenuComponent,
     children: [
-      { path: 'edit/:id', component: FilmEditComponent }, 
-      { path: '', component: FilmsListComponent, 
+      { path: 'edit/:id', component: FilmEditComponent },
+      { path: '', 
+        component: FilmsListComponent, 
         children: [
           { path: ':id', component: FilmDetailComponent }
         ]
-      } 
+      }
+      
     ] 
   }
 ];

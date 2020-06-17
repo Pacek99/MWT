@@ -39,6 +39,7 @@ export class FilmsListComponent implements OnInit, AfterViewInit{
 }
 
 class FilmsDataSource implements DataSource<Film>{
+  
   paginator: MatPaginator
   futureObservables = new EventEmitter<Observable<any>>()
   pageSize:number
@@ -106,7 +107,5 @@ class FilmsDataSource implements DataSource<Film>{
     )    
   }  
   
-  disconnect(): void {
-    throw new Error("Method not implemented.");
-  }
+  disconnect(): void {} 
 }
