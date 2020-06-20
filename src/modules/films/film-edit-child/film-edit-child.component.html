@@ -1,5 +1,6 @@
 <div class="main-wrapper">     
     <form (ngSubmit)="formSubmit()" [formGroup]='filmEditForm'>
+        Value: {{ filmEditForm.value | json }}<hr>    
         <h1>Film editing</h1>
         <mat-card class="example-card">
             <mat-card-content>
@@ -27,10 +28,59 @@
                 <mat-form-field>
                     <input matInput placeholder="afi2007" formControlName='afi2007' />
                 </mat-form-field>
+
+                <p>Rezisery:</p>
+                <div formArrayName='reziser'>
+                    <div *ngFor="let clovek of reziserArray.controls; let i=index" [formGroupName]="i">
+
+                        <mat-form-field class="xs">            
+                            <input matInput placeholder="priezvisko" formControlName="priezvisko">            
+                        </mat-form-field>
+            
+                        <mat-form-field class="xs">            
+                            <input matInput placeholder="krstneMeno" formControlName="krstneMeno">            
+                        </mat-form-field>    
+            
+                        <mat-form-field class="xs">            
+                            <input matInput placeholder="stredneMeno" formControlName="stredneMeno">            
+                        </mat-form-field>
+                        <button mat-raised-button color="warn" (click)="deleteReziser()">Delete</button>
+                    </div>    
+                </div>
+                <button mat-raised-button color="primary" (click)="addReziser()">Add Reziser</button>
+
+                <p>Postavy:</p>
+                <div formArrayName='postava'>
+                    <div *ngFor="let clovek of postavaArray.controls; let i=index" [formGroupName]="i">
+
+                        <mat-form-field class="xs">            
+                            <input matInput placeholder="postava" formControlName="postava">            
+                        </mat-form-field>
+
+                        <mat-form-field class="xs">            
+                            <input matInput placeholder="dolezitost" formControlName="dolezitost">            
+                        </mat-form-field>
+
+                        <mat-form-field class="xs">            
+                            <input matInput placeholder="priezviskoPostava" formControlName="priezviskoPostava">            
+                        </mat-form-field>
+            
+                        <mat-form-field class="xs">            
+                            <input matInput placeholder="krstneMenoPostava" formControlName="krstneMenoPostava">            
+                        </mat-form-field>    
+            
+                        <mat-form-field class="xs">            
+                            <input matInput placeholder="stredneMenoPostava" formControlName="stredneMenoPostava">            
+                        </mat-form-field>
+                        <button mat-raised-button color="warn" (click)="deletePostava()">Delete</button>
+                    </div>    
+                </div>
+                <button mat-raised-button color="primary" (click)="addPostava()">Add Postava</button>
+
             </mat-card-content>
             <mat-card-actions>
                 <button type="submit" mat-raised-button color="primary" [disabled]="filmEditForm?.invalid">Save</button>
             </mat-card-actions> 
-        </mat-card>
+        </mat-card>        
     </form>
 </div>

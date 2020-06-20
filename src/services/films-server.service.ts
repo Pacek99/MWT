@@ -4,6 +4,8 @@ import { Film } from 'src/entities/film';
 import { Observable, EMPTY, throwError } from 'rxjs';
 import { UsersServerService } from './users-server.service';
 import { tap, catchError } from 'rxjs/operators';
+import { Clovek } from 'src/entities/clovek';
+import { Postava } from 'src/entities/postava';
 
 @Injectable({
   providedIn: 'root'
@@ -64,6 +66,19 @@ export class FilmsServerService {
       return EMPTY //zle heslo
     }
     return throwError(error) //ina chyba
+  }
+
+  getFilm(id:number): Observable<Film>{
+    let httpOptions = this.getHeader()
+    return this.http.get<Film>(this.url + 'films/' + id,httpOptions).pipe(catchError(error => this.processHttpError(error)))
+  }
+
+  getMockEditFilm(): Film{
+    let reziser1 = new Clovek("Reziser1Priezvisko", "Reziser1KrstneMeno", "Reziser1StredneMeno",1)
+    let reziser2 = new Clovek("Reziser2Priezvisko", "Reziser2KrstneMeno", "Reziser2StredneMeno",2)
+    let postava1 = new Postava("Postava1", "hlavná postava", new Clovek("Herec1Priezvisko", "Herec1KrstneMeno", "Herec1StredneMeno",3))    
+    let postava2 = new Postava("Postava2", "vedľajšia postava", new Clovek("Herec2Priezvisko", "Herec2KrstneMeno", "Herec2StredneMeno",4))
+    return new Film("NazovFilmu", 2020, 2, "imbdID", "SlovenskyNazovFilmu",{'AFI 1998': 10, 'AFI 2007': 20},[reziser1,reziser2],[postava1,postava2])
   }
  
 }

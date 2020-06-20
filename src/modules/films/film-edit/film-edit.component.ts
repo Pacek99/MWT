@@ -28,7 +28,7 @@ export class FilmEditComponent implements OnInit, CanDeactivateComponent {
     this.route.data.subscribe((data) => {
       this.filmSaved = false
       this.filmToEdit = data.film
-    })      
+    }) 
   }
 
   saveFilm(film: Film){
