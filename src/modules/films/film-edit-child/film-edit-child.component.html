@@ -44,7 +44,7 @@
                         <mat-form-field class="xs">            
                             <input matInput placeholder="stredneMeno" formControlName="stredneMeno">            
                         </mat-form-field>
-                        <button mat-raised-button color="warn" (click)="deleteReziser()">Delete</button>
+                        <button mat-raised-button color="warn" (click)="deleteReziser(i)">Delete</button>
                     </div>    
                 </div>
                 <button mat-raised-button color="primary" (click)="addReziser()">Add Reziser</button>
@@ -72,7 +72,7 @@
                         <mat-form-field class="xs">            
                             <input matInput placeholder="stredneMenoPostava" formControlName="stredneMenoPostava">            
                         </mat-form-field>
-                        <button mat-raised-button color="warn" (click)="deletePostava()">Delete</button>
+                        <button mat-raised-button color="warn" (click)="deletePostava(i)">Delete</button>
                     </div>    
                 </div>
                 <button mat-raised-button color="primary" (click)="addPostava()">Add Postava</button>
