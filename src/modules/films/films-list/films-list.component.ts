@@ -15,7 +15,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 export class FilmsListComponent implements OnInit, AfterViewInit{
   dataSource: FilmsDataSource
   filter$ = new EventEmitter<string>()
-  columnsToDisplay = ['id','nazov','slovenskyNazov','rok','afi1998','afi2007', 'action']
+  columnsToDisplay = ['id','nazov','slovenskyNazov','rok','afi1998','afi2007','reziser','postavy', 'action']
   @ViewChild(MatPaginator) paginator: MatPaginator
   @ViewChild(MatSort) sort: MatSort
 

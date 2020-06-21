@@ -34,6 +34,26 @@
             {{ film.poradieVRebricku["AFI 2007"] }}
         </td>
     </ng-container>
+    <ng-container matColumnDef="reziser">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Reziser</th>
+        <td mat-cell *matCellDef="let film"> 
+            <div class="vypis">
+                <div *ngFor='let item of film.reziser'>
+                    {{item.krstneMeno}} {{item.stredneMeno}} {{item.priezvisko}}
+                </div>
+            </div>
+        </td>
+    </ng-container>
+    <ng-container matColumnDef="postavy">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Postavy</th>
+        <td mat-cell *matCellDef="let film"> 
+            <div class="vypis">
+                <div  *ngFor='let item of film.postava'>
+                    {{item.postava}} ({{item.dolezitost}}) Herec: {{item.herec.krstneMeno}} {{item.herec.stredneMeno}} {{item.herec.priezvisko}}
+                </div>
+            </div>
+        </td>
+    </ng-container>
     <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
         <td mat-cell *matCellDef="let film">
