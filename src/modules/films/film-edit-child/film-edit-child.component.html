@@ -29,6 +29,7 @@
                     <input matInput placeholder="afi2007" formControlName='afi2007' />
                 </mat-form-field>
 
+                <br><br>
                 <p>Rezisery:</p>
                 <div formArrayName='reziser'>
                     <div *ngFor="let clovek of reziserArray.controls; let i=index" [formGroupName]="i">
@@ -47,8 +48,9 @@
                         <button mat-raised-button color="warn" (click)="deleteReziser(i)">Delete</button>
                     </div>    
                 </div>
-                <button mat-raised-button color="primary" (click)="addReziser()">Add Reziser</button>
+                <button mat-raised-button type="button" color="accent" (click)="addReziser()">Add Reziser</button>
 
+                <br><br>
                 <p>Postavy:</p>
                 <div formArrayName='postava'>
                     <div *ngFor="let clovek of postavaArray.controls; let i=index" [formGroupName]="i">
@@ -75,7 +77,7 @@
                         <button mat-raised-button color="warn" (click)="deletePostava(i)">Delete</button>
                     </div>    
                 </div>
-                <button mat-raised-button color="primary" (click)="addPostava()">Add Postava</button>
+                <button mat-raised-button type="button" color="accent" (click)="addPostava()">Add Postava</button>
 
             </mat-card-content>
             <mat-card-actions>

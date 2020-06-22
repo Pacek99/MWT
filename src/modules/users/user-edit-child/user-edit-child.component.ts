@@ -106,7 +106,7 @@ export class UserEditChildComponent implements OnChanges {
   }
 
   formSubmit(){
-    debugger;
+    //debugger;
     const user = new User(
       this.name.value,
       this.email.value,

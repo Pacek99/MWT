@@ -37,8 +37,6 @@ export class FilmEditChildComponent implements OnChanges {
   constructor(private filmsServerService: FilmsServerService, private router: Router, private dialog: MatDialog) { }
 
   ngOnChanges(): void {    
-    //mock
-    //this.film = this.filmsServerService.getMockEditFilm()
     if(this.film){
       this.nazov.setValue(this.film.nazov)
       this.rok.setValue(this.film.rok)
@@ -46,7 +44,6 @@ export class FilmEditChildComponent implements OnChanges {
       this.slovenskyNazov.setValue(this.film.slovenskyNazov)
       this.afi1998.setValue(this.film.poradieVRebricku["AFI 1998"]?this.film.poradieVRebricku["AFI 1998"]:null)
       this.afi2007.setValue(this.film.poradieVRebricku["AFI 2007"]?this.film.poradieVRebricku["AFI 2007"]:null)
-      //z mock filmu
       this.reziser = this.film.reziser
       this.postava = this.film.postava
 
@@ -67,10 +64,6 @@ export class FilmEditChildComponent implements OnChanges {
         }))
       }
     }
-  }
-
-  setExistingReziser() {
-    throw new Error("Method not implemented.");
   }
 
   get nazov(){
@@ -111,8 +104,6 @@ export class FilmEditChildComponent implements OnChanges {
 
   formSubmit(){
     //debugger;
-    console.log("Zaciatok logu film edit child");
-    //console.log(", Nazov: " + this.film.nazov + ", Rok: " + this.film.rok);
     let poradieVRebricku: {[title: string]: number}
     if (this.afi1998.value && this.afi2007.value) {
       poradieVRebricku = {'AFI 1998': this.afi1998.value, 'AFI 2007': this.afi2007.value}
@@ -121,39 +112,29 @@ export class FilmEditChildComponent implements OnChanges {
     } else {
       poradieVRebricku = {'AFI 2007': this.afi2007.value}
     }
+
+    let rezisery: Clovek[] = new Array()
+    for (let i = 0; i < this.reziserArray.length; i++){
+      rezisery.push(new Clovek(this.reziserArray.at(i).get('priezvisko').value,this.reziserArray.at(i).get('krstneMeno').value,this.reziserArray.at(i).get('stredneMeno').value))
+    } 
+
+    let postavy: Postava[] = new Array()
+    for (let i = 0; i < this.postavaArray.length; i++){
+      postavy.push(new Postava(this.postavaArray.at(i).get('postava').value,this.postavaArray.at(i).get('dolezitost').value, 
+                  new Clovek(this.postavaArray.at(i).get('priezviskoPostava').value,this.postavaArray.at(i).get('krstneMenoPostava').value,this.postavaArray.at(i).get('stredneMenoPostava').value)))
+    }
+
     const film = new Film(
       this.nazov.value,
       this.rok.value,
-      //this.film.id,
-      2,
+      this.film.id,
       this.imdbID.value,
       this.slovenskyNazov.value,
       poradieVRebricku,
-      //this.film.reziser,
-      undefined,
-      //this.film.postava)
-      undefined)
+      rezisery,
+      postavy)
     this.changed.next(film)
-  }
-/*
-  deleteReziser(clovek: Clovek){
-    const dialogRef = this.dialog.open(ConfirmDialogComponent,{data: {
-      title: 'Deleting reziser',
-      message: 'Delete reziser ' + clovek.krstneMeno + ' ' + clovek.priezvisko + '?'
-    }})
-    
-    dialogRef.afterClosed().subscribe(result => {
-      if (result){
-        this.filmsServerService.deleteReziser(clovek.id).subscribe(
-          ok => {
-            if(ok){
-              this.dataSource.data = this.dataSource.data.filter(u => u.id !== user.id)
-            }
-          }
-        )
-      }
-    })  
-  }*/  
+  }  
 
   addReziser() {
     const clovek = new FormGroup({ 
