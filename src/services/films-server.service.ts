@@ -57,7 +57,7 @@ export class FilmsServerService {
   }
   
   saveFilm(film: Film): Observable<Film>{
-    return this.http.post<Film>(this.url + 'films/' + this.token, film)
+    return this.http.post<Film>(this.url + 'films', film, this.getHeader())
     .pipe(catchError(error => this.processHttpError(error)))
   }
   
